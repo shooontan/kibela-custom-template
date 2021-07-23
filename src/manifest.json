@@ -1,0 +1,25 @@
+{
+  "name": "kibela-custom-template",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "description": "Kibela Custom Template",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.kibe.la/note_templates/new",
+        "https://*.kibe.la/note_templates/*/edit"
+      ],
+      "js": ["entry/edit.ts"]
+    },
+    {
+      "matches": ["https://*.kibe.la/note_templates/*/notes/*"],
+      "js": ["entry/notes.ts"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["pages/*", "tokenizer.*.js", "vendor.*.js"],
+      "matches": ["https://*.kibe.la/*"]
+    }
+  ]
+}

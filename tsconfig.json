@@ -1,0 +1,12 @@
+{
+  "extends": "@shooontan/tsconfig",
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "target": "esnext",
+    "lib": [
+      "esnext",
+      "dom"
+    ]
+  }
+}
