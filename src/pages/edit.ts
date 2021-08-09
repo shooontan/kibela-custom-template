@@ -7,40 +7,39 @@ import { logger } from '../libs/logger';
 import { rewrite } from '../tokenizer';
 
 function run() {
-  const input = document.querySelector<HTMLInputElement>(selector.input);
-  if (!input) {
-    logger.debug('title input is not found.');
+  const preview = document.querySelector<HTMLInputElement>(selector.preview);
+  if (!preview) {
+    logger.debug('preview is not found.');
     return;
   }
 
-  const observer = new MutationObserver(() => {
-    logger.debug('start title observer.');
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'characterData') {
+        const originalText = mutation.target.nodeValue || '';
+        const rewriteText = rewrite(originalText);
 
-    const templateTitle = input.value || '';
-    const rewriteTitle = rewrite(templateTitle);
-    logger.debug('template title'.padEnd(14), ':', templateTitle);
-    logger.debug('rewrite title'.padEnd(14), ':', rewriteTitle);
+        logger.debug('original text'.padEnd(14), ':', originalText);
+        logger.debug('rewrite text'.padEnd(14), ':', rewriteText);
 
-    if (!templateTitle) {
-      logger.debug('skip rewriting.');
-      return;
-    }
-
-    const preview = document.querySelector<HTMLSpanElement>(selector.preview);
-    if (!preview) {
-      logger.debug('preview text is not found.');
-      return;
-    }
-    preview.textContent = rewriteTitle;
+        if (originalText === rewriteText) {
+          logger.debug('skip rewriting.');
+        } else {
+          mutation.target.nodeValue = rewriteText;
+        }
+      }
+    });
   });
 
-  observer.observe(input, {
+  observer.observe(preview, {
     attributes: true,
     attributeOldValue: true,
     characterData: true,
     childList: true,
     subtree: true,
   });
+
+  // TODO: update preview title on first view
 }
 
 run();
