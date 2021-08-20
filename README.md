@@ -1,6 +1,11 @@
 # Kibela Custom Template Chrome Extension
 
+[![chrome web store](https://img.shields.io/chrome-web-store/v/aemdmpoppijcgmmkbdpjghhjjahhgkap.svg)](https://chrome.google.com/webstore/detail/kibela-custom-template/aemdmpoppijcgmmkbdpjghhjjahhgkap)
+[![test](https://github.com/shooontan/kibela-custom-template/actions/workflows/test.yml/badge.svg)](https://github.com/shooontan/kibela-custom-template/actions/workflows/test.yml)
+
 This Chrome extension extends [Kibela](https://kibe.la/)'s template variables to allow new template variables to be used.
+
+Install: [Chrome Web Store](https://chrome.google.com/webstore/detail/kibela-custom-template/aemdmpoppijcgmmkbdpjghhjjahhgkap)
 
 ## Kibela Default Template Variables
 
@@ -54,3 +59,19 @@ This extension supports following custom template rule.
 |         | \+ - = | sun mon tue wed thu fri sat |         |
 | year    | \+ -   | number                      | y m d w |
 |         | \+ - = | sun mon tue wed thu fri sat |         |
+
+## Development
+
+```sh
+# install node modules
+npm ci
+
+# build extension
+npm run build
+
+# lint
+npm run lint
+
+# test
+npm test && npm run typecheck
+```
