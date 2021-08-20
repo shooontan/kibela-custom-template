@@ -6,29 +6,35 @@ import { selector } from '../constant';
 import { logger } from '../libs/logger';
 import { rewrite } from '../tokenizer';
 
+function patch(preview: HTMLSpanElement) {
+  preview.childNodes.forEach((node) => {
+    if (node.nodeType !== Node.TEXT_NODE) {
+      return;
+    }
+
+    const originalText = node.nodeValue || '';
+    const rewriteText = rewrite(originalText);
+
+    logger.debug('original text'.padEnd(14), ':', originalText);
+    logger.debug('rewrite text'.padEnd(14), ':', rewriteText);
+
+    if (originalText === rewriteText) {
+      logger.debug('skip rewriting.');
+    } else {
+      node.nodeValue = rewriteText;
+    }
+  });
+}
+
 function run() {
-  const preview = document.querySelector<HTMLInputElement>(selector.preview);
+  const preview = document.querySelector<HTMLSpanElement>(selector.preview);
   if (!preview) {
     logger.debug('preview is not found.');
     return;
   }
 
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === 'characterData') {
-        const originalText = mutation.target.nodeValue || '';
-        const rewriteText = rewrite(originalText);
-
-        logger.debug('original text'.padEnd(14), ':', originalText);
-        logger.debug('rewrite text'.padEnd(14), ':', rewriteText);
-
-        if (originalText === rewriteText) {
-          logger.debug('skip rewriting.');
-        } else {
-          mutation.target.nodeValue = rewriteText;
-        }
-      }
-    });
+  const observer = new MutationObserver(() => {
+    patch(preview);
   });
 
   observer.observe(preview, {
@@ -39,7 +45,8 @@ function run() {
     subtree: true,
   });
 
-  // TODO: update preview title on first view
+  // update preview title on first view
+  patch(preview);
 }
 
 run();
