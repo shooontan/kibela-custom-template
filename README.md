@@ -47,7 +47,6 @@ This extension supports following custom template rule.
 | rule    | sign   | value                       | unit    |
 | ------- | ------ | --------------------------- | ------- |
 | week    | \+ -   | number                      | y m d w |
-|         | \+ - = | sun mon tue wed thu fri sat |         |
 | weekday | \+ -   | number                      | y m d w |
 |         | \+ - = | sun mon tue wed thu fri sat |         |
 | day     | \+ -   | number                      | y m d w |
