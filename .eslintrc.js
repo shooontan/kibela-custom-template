@@ -6,5 +6,7 @@ module.exports = {
   },
   rules: {
     'no-constant-condition': ['error', { checkLoops: false }],
+    'no-empty-function': 'error',
+    '@typescript-eslint/member-ordering': 'error',
   },
 };
