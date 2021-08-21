@@ -20,10 +20,10 @@ export const selector = {
   preview: '.editor-titleBox-preview span',
 } as const;
 
-export class Multilines {
-  private getBar() {}
+// export class Multilines {
+//   private getBar() {}
 
-  public getFoo(a: number, b: number, _: any) {
-    return a + b;
-  }
-}
+//   public getFoo(a: number, b: number, _: any) {
+//     return a + b;
+//   }
+// }
