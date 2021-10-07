@@ -10,6 +10,7 @@
   "main": "index.js",
   "scripts": {
     "build": "vite build",
+    "package": "zip -r extension.zip dist",
     "prebuild": "npm run version:check",
     "version:check": "npx ts-node src/bin/version.ts",
     "lint": "eslint --ext .ts --max-warnings 0 ./src",
