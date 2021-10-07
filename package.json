@@ -21,6 +21,7 @@
     "@shooontan/eslint-config-ts": "^0.0.1",
     "@shooontan/tsconfig": "^0.0.1",
     "@types/jest": "^26.0.24",
+    "chrome-webstore-upload-cli": "^2.0.1",
     "eslint": "^7.31.0",
     "eslint-plugin-jest": "^24.4.0",
     "jest": "^27.0.6",
