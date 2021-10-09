@@ -35,9 +35,9 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: extension.zip
-      - name: Upload Chrome Webstore
+      - name: Upload Chrome Webstore & Publish Extension
         run: |
-          npx chrome-webstore-upload-cli upload --source extension.zip
+          npx chrome-webstore-upload-cli upload --auto-publish --source extension.zip
         env:
           EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
