@@ -1,6 +1,6 @@
 {
   "name": "kibela-custom-template",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "manifest_version": 3,
   "description": "Kibela Custom Template",
   "content_scripts": [
