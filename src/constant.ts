@@ -16,6 +16,6 @@ export type Signs = typeof signs[number];
 export type Weeks = typeof weeks[number];
 
 export const selector = {
-  input: '.editor-titleBox-input',
+  titlearea: '.editor-titleBox-flexInput-input',
   preview: '.editor-titleBox-preview span',
 } as const;

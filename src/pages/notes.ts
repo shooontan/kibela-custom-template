@@ -23,8 +23,8 @@ const status = {
   },
 };
 
-function patch(input: HTMLInputElement) {
-  const templateTitle = input.getAttribute('value') || '';
+function patch(textarea: HTMLTextAreaElement) {
+  const templateTitle = textarea.value || '';
   const rewriteTitle = rewrite(templateTitle);
   logger.debug('template title'.padEnd(14), ':', templateTitle);
   logger.debug('rewrite title'.padEnd(14), ':', rewriteTitle);
@@ -35,32 +35,34 @@ function patch(input: HTMLInputElement) {
   }
   status.add(true);
 
-  // HACK: update input value outside react
-  const nativeInputValue = Object.getOwnPropertyDescriptor(
-    HTMLInputElement.prototype,
+  // HACK: update textarea value outside react
+  const nativeTextareaValue = Object.getOwnPropertyDescriptor(
+    HTMLTextAreaElement.prototype,
     'value'
   );
-  nativeInputValue?.set?.call(input, rewriteTitle);
+  nativeTextareaValue?.set?.call(textarea, rewriteTitle);
 
   const event = new Event('input', {
     bubbles: true,
     cancelable: true,
   });
-  input.dispatchEvent(event);
+  textarea.dispatchEvent(event);
 }
 
 function run() {
-  const input = document.querySelector<HTMLInputElement>(selector.input);
-  if (!input) {
-    logger.debug('title input is not found.');
+  const textarea = document.querySelector<HTMLTextAreaElement>(
+    selector.titlearea
+  );
+  if (!textarea) {
+    logger.debug('title textarea is not found.');
     return;
   }
 
   const observer = new MutationObserver(() => {
-    patch(input);
+    patch(textarea);
   });
 
-  observer.observe(input, {
+  observer.observe(textarea, {
     attributes: true,
     attributeOldValue: true,
     characterData: true,
@@ -68,9 +70,9 @@ function run() {
     subtree: true,
   });
 
-  patch(input);
+  patch(textarea);
 
-  input.addEventListener('focus', () => {
+  textarea.addEventListener('focus', () => {
     observer.disconnect();
   });
 }
